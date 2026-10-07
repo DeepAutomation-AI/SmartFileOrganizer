@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smartfileorganizer"
+version = "1.0.0"
+description = "Organización segura de archivos mediante reglas, historial y automatización"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "DeepAutomation-AI"}]
+keywords = ["files", "automation", "organizer", "cli"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "click>=8.1,<9",
+  "PyYAML>=6,<7",
+  "APScheduler>=3.10,<4",
+  "python-dotenv>=1,<2",
+  "tzdata>=2024.1; platform_system == 'Windows'",
+]
+
+[project.optional-dependencies]
+realtime = ["watchdog>=4,<7"]
+desktop = ["plyer>=2.1,<3"]
+dev = ["pytest>=8,<10", "pytest-cov>=5,<8", "ruff>=0.9,<1", "build>=1,<2"]
+
+[project.scripts]
+smartfileorganizer = "smartfileorganizer.cli:main"
+
+[project.urls]
+Repository = "https://github.com/DeepAutomation-AI/SmartFileOrganizer"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "--strict-markers --cov=smartfileorganizer --cov-report=term-missing --cov-fail-under=81"
+
+[tool.coverage.run]
+source = ["smartfileorganizer"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 81
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

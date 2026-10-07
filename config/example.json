@@ -1,0 +1,47 @@
+{
+  "sources": [
+    {"path": "${HOME}/Downloads", "recursive": true},
+    {"path": "${HOME}/Desktop", "recursive": false}
+  ],
+  "destination_root": "${HOME}/Organized",
+  "database": "../.state/history.sqlite3",
+  "log_file": "../.logs/organizer.jsonl",
+  "duplicate_policy": "skip",
+  "duplicate_directory": "Duplicates",
+  "exclude": ["*.part", "*.crdownload", "*.tmp"],
+  "min_file_age_seconds": 2,
+  "notifications": {"channels": []},
+  "schedule": {"interval_seconds": 300, "timezone": "UTC"},
+  "rules": [
+    {
+      "name": "Archivar archivos antiguos",
+      "match": {"older_than_days": 90},
+      "destination": "Archive/{year}",
+      "enabled": true
+    },
+    {
+      "name": "Imágenes grandes",
+      "match": {"mime": ["image/*"], "min_size": 5242880},
+      "destination": "Photos/Large",
+      "enabled": true
+    },
+    {
+      "name": "Documentos PDF",
+      "match": {"patterns": ["*.pdf"]},
+      "destination": "Documents/PDFs/{year}",
+      "enabled": true
+    },
+    {
+      "name": "Imágenes",
+      "match": {"mime": ["image/*"]},
+      "destination": "Photos/{year}/{month}",
+      "enabled": true
+    },
+    {
+      "name": "Otros archivos",
+      "match": {},
+      "destination": "Other/{extension}",
+      "enabled": true
+    }
+  ]
+}
